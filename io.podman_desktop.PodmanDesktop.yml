@@ -49,7 +49,7 @@ modules:
           install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/";
         done;
         # add scalable svg icon
-      - install -p -Dm644 "buildResources/icon.svg" -t "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
+      - install -p -Dm644 "buildResources/icon.svg" "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
       # add metainfo
       - install -Dm644 .flatpak-appdata.xml "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml";
       # Add version
