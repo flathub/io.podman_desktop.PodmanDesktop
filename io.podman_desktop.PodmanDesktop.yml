@@ -52,18 +52,14 @@ modules:
       - install -p -Dm644 "buildResources/icon.svg" "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
       # add metainfo
       - install -Dm644 .flatpak-appdata.xml "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml";
-      # Add version
-      - sed -e 's|</component>|<releases><release version="0.0.6" date="2022-08-10"></release></releases></component>|' -i "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml";
       # add desktop file
       - install -Dm644 .flatpak.desktop /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v0.0.6.tar.gz
-        sha256: 40b1668a5d75413d86694b8c797cb2fe1b069d1d09ddf6d0be2c77634a221d1f
-      - type: file
-        path: io.podman_desktop.PodmanDesktop.desktop
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v0.0.7.tar.gz
+        sha256: 22c2f6e2e368f72c43b965cd1b53c8a32ba9665bda88598b3c8a5185a8621f8d
       - type: script
         dest-filename: run.sh
         commands:
