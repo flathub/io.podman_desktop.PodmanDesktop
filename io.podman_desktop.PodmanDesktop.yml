@@ -55,7 +55,7 @@ modules:
       # Add version
       - sed -e 's|</component>|<releases><release version="0.0.6" date="2022-08-10"></release></releases></component>|' -i "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml";
       # add desktop file
-      - install -Dm644 ${FLATPAK_ID}.desktop /app/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 .flatpak.desktop /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
