@@ -13,7 +13,7 @@ finish-args:
   - "--share=ipc"
   - "--device=dri"
   - "--filesystem=home"
-  - "--filesystem=xdg-run/podman"
+  - "--filesystem=xdg-run/podman:create"
   - "--share=network"
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.kde.StatusNotifierWatcher"
