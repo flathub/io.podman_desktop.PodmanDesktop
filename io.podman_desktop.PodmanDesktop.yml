@@ -13,6 +13,7 @@ finish-args:
   - "--share=ipc"
   - "--device=dri"
   - "--filesystem=home"
+  - "--filesystem=/run/docker.sock"
   - "--filesystem=xdg-run/podman"
   - "--share=network"
   - "--talk-name=org.freedesktop.Notifications"
