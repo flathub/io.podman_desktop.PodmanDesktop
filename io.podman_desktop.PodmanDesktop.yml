@@ -14,6 +14,7 @@ finish-args:
   - "--device=dri"
   - "--filesystem=home"
   - "--filesystem=xdg-run/podman:create"
+  - "--filesystem=/run/docker.sock"
   - "--share=network"
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.kde.StatusNotifierWatcher"
