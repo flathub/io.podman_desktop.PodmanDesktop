@@ -40,7 +40,7 @@ modules:
       # compile the app
       - MODE=production yarn --offline run build
       # Build electron app
-      - MODE=production $(npm bin)/electron-builder build --config .electron-builder.config.js --linux --dir
+      - MODE=production $(npm bin)/electron-builder build --config .electron-builder.config.cjs --linux --dir
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
       # add icons
@@ -59,8 +59,8 @@ modules:
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v0.10.0.tar.gz
-        sha256: d2964b8c9b7247dad5abbd5017d5b5d4688ebacf940434003abebc92e27e65ce
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v0.11.0.tar.gz
+        sha256: bfcd9c2a96f16b5ebd7d4ed3cc17eef81981e9cd6eed7d71cabddf5accbd3c34
       - type: script
         dest-filename: run.sh
         commands:
