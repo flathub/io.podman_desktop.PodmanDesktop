@@ -72,5 +72,5 @@ modules:
         path: patches/remove-contour-download.patch
       - type: file
         url: https://raw.githubusercontent.com/projectcontour/contour/v1.24.2/examples/render/contour.yaml
-        dest: extensions/kind/src-generated/contour.yaml
+        dest: extensions/kind/src-generated/
         sha256: e7600d6e0ed5ac59ae0533ad87ef590248f92e61adfb47d30c296d301f117da8
