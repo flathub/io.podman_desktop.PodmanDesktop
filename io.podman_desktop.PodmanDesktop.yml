@@ -69,7 +69,7 @@ modules:
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
       - type: patch
-        path: patches/patches/remove-contour-download.patch
+        path: patches/remove-contour-download.patch
       - type: file
         url: https://raw.githubusercontent.com/projectcontour/contour/v1.24.2/examples/render/contour.yaml
         dest: extensions/kind/src-generated/contour.yaml
