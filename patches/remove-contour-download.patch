@@ -1,11 +1,12 @@
 diff --git a/extensions/kind/package.json b/extensions/kind/package.json
-index 3a42312b..f7a30606 100644
+index cc62e584..d9461c2d 100644
 --- a/extensions/kind/package.json
 +++ b/extensions/kind/package.json
-@@ -60,7 +60,7 @@
+@@ -60,8 +60,7 @@
      }
    },
    "scripts": {
+-    "postinstall": "npx ts-node ./scripts/download.ts",
 -    "build": "npx ts-node ./scripts/download.ts && vite build && node ./scripts/build.js",
 +    "build": "vite build && node ./scripts/build.js",
      "test": "vitest run --coverage",
