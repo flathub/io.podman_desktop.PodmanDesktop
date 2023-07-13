@@ -42,7 +42,8 @@ modules:
       # Build electron app
       - MODE=production yarn --verbose --offline run build --config .electron-builder.config.cjs --linux --dir
       - ls -lah
-      - ls -lah dist/
+      - echo $FLATPAK_BUILDER_BUILDDIR
+      - ls $FLATPAK_BUILDER_BUILDDIR/release/
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
       # add icons
