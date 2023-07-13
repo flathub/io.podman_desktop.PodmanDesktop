@@ -28,6 +28,7 @@ modules:
       env:
         npm_config_nodedir: /usr/lib/sdk/node18
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
+        TMPDIR: /run/build/podman-desktop/flatpak-node/tmp
     build-commands:
       # Display tooling version
       - node --version
@@ -39,9 +40,9 @@ modules:
       # compile the app
       - MODE=production yarn --offline run build
       # Build electron app
-      - |
-        MODE=production yarn --offline run build --config .electron-builder.config.cjs --linux --dir;
-        ls dist/
+      - MODE=production yarn --verbose --offline run build --config .electron-builder.config.cjs --linux --dir
+      - ls -lah
+      - ls -lah dist/
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
       # add icons
