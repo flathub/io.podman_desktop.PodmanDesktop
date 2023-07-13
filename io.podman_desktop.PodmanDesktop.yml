@@ -39,7 +39,9 @@ modules:
       # compile the app
       - MODE=production yarn --offline run build
       # Build electron app
-      - MODE=production yarn --offline run build --config .electron-builder.config.cjs --linux --dir
+      - |
+        MODE=production yarn --offline run build --config .electron-builder.config.cjs --linux --dir;
+        ls dist/
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
       # add icons
