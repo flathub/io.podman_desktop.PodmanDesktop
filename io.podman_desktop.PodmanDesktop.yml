@@ -6,7 +6,7 @@ base: org.electronjs.Electron2.BaseApp
 base-version: "22.08"
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.node18
-command: run.sh
+command: /app/bin/run.sh
 separate-locales: false
 finish-args:
   - "--socket=x11"
@@ -19,14 +19,14 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.kde.StatusNotifierWatcher"
   - "--talk-name=org.freedesktop.Flatpak"
-build-options:
-  append-path: /usr/lib/sdk/node18/bin
 modules:
   # Podman Desktop sources
   - name: podman-desktop
     buildsystem: simple
     build-options:
+      append-path: /usr/lib/sdk/node18/bin
       env:
+        npm_config_nodedir: /usr/lib/sdk/node18
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
         YARN_CACHE_FOLDER: /run/build/podman-desktop/flatpak-node/yarn-cache
     build-commands:
