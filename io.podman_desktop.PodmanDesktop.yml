@@ -35,7 +35,7 @@ modules:
       - yarn --version
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       - yarn --offline install
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn run electron-builder build --config .electron-builder.config.cjs --linux --dir
+      - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do
           rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg";
