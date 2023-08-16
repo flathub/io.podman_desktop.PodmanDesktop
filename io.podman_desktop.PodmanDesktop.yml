@@ -62,8 +62,6 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
-      - type: patch
-        path: patches/remove-contour-download.patch
       - type: file
         url: https://raw.githubusercontent.com/projectcontour/contour/v1.24.2/examples/render/contour.yaml
         dest: extensions/kind/src-generated/
