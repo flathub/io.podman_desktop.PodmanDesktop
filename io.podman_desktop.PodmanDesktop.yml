@@ -53,8 +53,8 @@ modules:
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.2.1.tar.gz
-        sha256: be0518d4cb483e9829c7f11dc666388a5f5bc4f0715d4f92a5c262b785469e8a
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.3.1.tar.gz
+        sha256: 5b208a79654e464d52f54bf4ef73e2e8eb40dc6f39221aa4aff0424825e1feab
       - type: script
         dest-filename: run.sh
         commands:
@@ -62,8 +62,6 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
-      - type: patch
-        path: patches/remove-contour-download.patch
       - type: file
         url: https://raw.githubusercontent.com/projectcontour/contour/v1.24.2/examples/render/contour.yaml
         dest: extensions/kind/src-generated/
