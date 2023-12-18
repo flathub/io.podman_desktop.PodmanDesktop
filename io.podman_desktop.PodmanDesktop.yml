@@ -63,6 +63,6 @@ modules:
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
       - type: file
-        url: https://raw.githubusercontent.com/projectcontour/contour/v1.24.2/examples/render/contour.yaml
-        dest: extensions/kind/src-generated/
-        sha256: e7600d6e0ed5ac59ae0533ad87ef590248f92e61adfb47d30c296d301f117da8
+        url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-x64.tar.br
+        dest: $HOME/.npm/_libvips/libvips-8.14.5-linux-amd64.tar.br
+        sha512: SlFWrITSW5XVUkaFPQOySAaSGXnhkGJCj8X2wGYYta9hk5piZldQyMp4zwy0z6UeRu1qKTKtZvmq28W3Gnh9xA==
