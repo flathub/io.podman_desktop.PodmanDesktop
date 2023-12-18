@@ -34,8 +34,9 @@ modules:
       - node --version
       - yarn --version
       - rm -rf website-argos # remove website-argos to avoid yarn install error
+      - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\",#g" package.json # remove playwright install from post-install script
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
-      - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn --offline install
+      - yarn --offline install
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run build
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
