@@ -35,10 +35,8 @@ modules:
       - yarn --version
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       - ls -la
-      - ls -la $FLATPAK_BUILDER_BUILDDIR/sharp-libvips/
-      - mkdir -p $HOME/.npm/_libvips
-      - cp -a sharp-libvips/* $HOME/.npm/_libvips/
-      - yarn --offline install
+      - ls -la $FLATPAK_BUILDER_BUILDDIR/.npm-cache/sharp-libvips/
+      - npm_config_cache=$FLATPAK_BUILDER_BUILDDIR/.npm-cache yarn --offline install
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run build
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
@@ -68,9 +66,9 @@ modules:
       - generated-sources.json
       - type: file
         url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-x64.tar.br
-        dest: sharp-libvips/
+        dest: .npm-cache/sharp-libvips/
         sha256: 11959c03864960f812d861bf7291020540a49fafd2c746b7a3228d9f2bd2200d
       - type: file
         url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-arm64v8.tar.br
-        dest: sharp-libvips/
+        dest: .npm-cache/sharp-libvips/
         sha256: 952223fca94934b7e7c431963692cd935cf6c1429830d0bf04a75a2dc6fb2a7b
