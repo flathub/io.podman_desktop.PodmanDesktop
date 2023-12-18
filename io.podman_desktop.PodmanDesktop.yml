@@ -35,7 +35,7 @@ modules:
       - yarn --version
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       - ls -la $FLATPAK_BUILDER_BUILDDIR/.npm-cache/_libvips/
-      - npm_config_cache=$FLATPAK_BUILDER_BUILDDIR/.npm-cache yarn --offline install
+      - npm_config_cache=$FLATPAK_BUILDER_BUILDDIR/.npm-cache npm_config_sharp_install_force=true yarn --offline install
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run build
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
