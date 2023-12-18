@@ -35,7 +35,8 @@ modules:
       - yarn --version
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       - ls -la
-      - ls -la sharp-libvips/*
+      - ls -la sharp-libvips/
+      - ls -la sharp-libvips/v8.14.5
       - npm_config_sharp_libvips_local_prebuilds=sharp-libvips/ yarn --offline install
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run build
       - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
