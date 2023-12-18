@@ -62,7 +62,11 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
-      - type: file
-        url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-x64.tar.br
-        dest: $HOME/.npm/_libvips/libvips-8.14.5-linux-amd64.tar.br
-        sha256: 11959c03864960f812d861bf7291020540a49fafd2c746b7a3228d9f2bd2200d
+      - type: archive
+        url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-x64.tar.gz
+        dest: node_modules/sharp/vendor/8.14.5/linux-x64
+        sha256: 56605aa5928c0ad778392a320d55eb9a4efab5d2cd8054d2dd967942b1938824
+      - type: archive
+        url: https://github.com/lovell/sharp-libvips/releases/download/v8.14.5/libvips-8.14.5-linux-arm64v8.tar.gz
+        dest: node_modules/sharp/vendor/8.14.5/linux-arm64v8
+        sha256: 0037b93514594476ef10a6762c59a3519bba2e520dc88268d047d4d19b30dda0
