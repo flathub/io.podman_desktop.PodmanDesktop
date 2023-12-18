@@ -33,8 +33,7 @@ modules:
       # Display tooling version
       - node --version
       - yarn --version
-      - remove folder website-argos
-      - rm -rf website-argos
+      - rm -rf website-argos # remove website-argos to avoid yarn install error
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       - ls -la $FLATPAK_BUILDER_BUILDDIR/.npm-cache/_libvips/
       - npm_config_cache=$FLATPAK_BUILDER_BUILDDIR/.npm-cache npm_config_sharp_install_force=true yarn --offline install
