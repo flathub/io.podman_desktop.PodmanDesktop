@@ -3984,6 +3984,13 @@
     },
     {
         "type": "file",
+        "url": "https://registry.yarnpkg.com/@electron/fuses/-/fuses-1.7.0.tgz#0800d5404fffe5683705297990fea089d49811a2",
+        "sha512": "99f84ba1919076aad253f49e38506ceabf83ee0d6d62256cd82fe187bb773454347217171a85abada775eeb0902f5226349b825ece1cbb6dd8063e420278f948",
+        "dest-filename": "@electron-fuses-1.7.0.tgz",
+        "dest": "flatpak-node/yarn-mirror"
+    },
+    {
+        "type": "file",
         "url": "https://registry.yarnpkg.com/@electron/get/-/get-2.0.2.tgz#ae2a967b22075e9c25aaf00d5941cd79c21efd7e",
         "sha512": "7856551684576f718519dec093b5b8fba8c197dc01b6267801a60eb1ef7b7a3ea62a3e6d9323b47549d40a1b35221259b71d4110da38fe9e165135e98babd3fa",
         "dest-filename": "@electron-get-2.0.2.tgz",
