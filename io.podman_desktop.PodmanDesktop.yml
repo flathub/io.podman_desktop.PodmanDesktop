@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: "23.08"
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node18
+  - org.freedesktop.Sdk.Extension.node20
 command: run.sh
 separate-locales: false
 finish-args:
@@ -24,9 +24,9 @@ modules:
   - name: podman-desktop
     buildsystem: simple
     build-options:
-      append-path: /usr/lib/sdk/node18/bin
+      append-path: /usr/lib/sdk/node20/bin
       env:
-        npm_config_nodedir: /usr/lib/sdk/node18
+        npm_config_nodedir: /usr/lib/sdk/node20
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
         DEBUG: electron-rebuild,electron-builder
     build-commands:
@@ -50,15 +50,15 @@ modules:
         # add scalable svg icon
       - install -p -Dm644 "buildResources/icon.svg" "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
       # add metainfo
-      - install -Dm644 .flatpak-appdata.xml "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml";
+      - install -Dm644 "${FLATPAK_ID}.metainfo.xml" "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
       # add desktop file
       - install -Dm644 .flatpak.desktop /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.7.1.tar.gz
-        sha256: f7ea6fdb90a8196dbbc5c25eb59a791a29986d88f906bda9a4d002d64280f74c
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.8.0.tar.gz
+        sha256: 30035c7603cf25c70fbc1b6370e0982aa95c537e06c6d54d8da02e021351e649
       - type: script
         dest-filename: run.sh
         commands:
@@ -66,3 +66,5 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
+      - type: file
+        path: io.podman_desktop.PodmanDesktop.metainfo.xml
