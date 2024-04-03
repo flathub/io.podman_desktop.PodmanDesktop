@@ -57,8 +57,8 @@ modules:
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.8.0.tar.gz
-        sha256: 30035c7603cf25c70fbc1b6370e0982aa95c537e06c6d54d8da02e021351e649
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.9.0.tar.gz
+        sha256: b4b1a5fc974215ed924ed4d0fe18148f8673d927f88a62370bf28996f6769666
       - type: script
         dest-filename: run.sh
         commands:
