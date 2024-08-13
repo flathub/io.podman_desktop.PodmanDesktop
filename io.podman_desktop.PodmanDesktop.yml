@@ -19,6 +19,8 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.kde.StatusNotifierWatcher"
   - "--talk-name=org.freedesktop.Flatpak"
+  # required to fix cursor scaling on wayland https://github.com/electron/electron/issues/19810
+  - "--env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons"
 modules:
   # Podman Desktop sources
   - name: podman-desktop
