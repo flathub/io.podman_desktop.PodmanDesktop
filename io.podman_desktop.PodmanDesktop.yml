@@ -39,6 +39,12 @@ modules:
       - rm -rf website-argos # remove website-argos to avoid yarn install error
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
+      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      # This is TEMPORARY AND SHOULD BE REMOVED POST 1.12.0 RELEASE
+      # REMOVE THIS LINE BEFORE DOING 1.13.0 RELEASE
+      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      # Replace semver `"semver": "^7.5.8",` to `"semver": "^7.6.3",` in extensions/kubectl-cli/package.json, just sed replace 7.5.8 to 7.6.3
+      - "sed -i 's/\"semver\": \"^7.5.8\",/\"semver\": \"^7.6.3\",/g' extensions/kubectl-cli/package.json"
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - yarn --offline install
@@ -60,8 +66,8 @@ modules:
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.11.1.tar.gz
-        sha256: 55797f6bbbe8567ec97c6ae909a41e9d2b51877c47f419aceb6e6e099d096b79
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.12.0.tar.gz
+        sha256: d427461f44c274a022f20703d60256fbdb60de3502bdbaa18401a7994758ee92
       - type: script
         dest-filename: run.sh
         commands:
@@ -69,3 +75,5 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - generated-sources.json
+      - type: file
+        path: yarn.lock
