@@ -34,7 +34,6 @@ modules:
     build-commands:
       # Display tooling version
       - ls -la
-      - ./pnpm-x64 --version
       - arch
       # if arch is x64, then use x64 version of pnpm else use the arm64 version
       - if [ "$(arch)" = "x86_64" ]; then
