@@ -35,11 +35,6 @@ modules:
       # Display tooling version
       - ls -la
       # if arch is x86_64, then use x64 version of pnpm else use the arm64 version
-      - if [ "$(arch)" = "x86_64" ]; then
-          cp pnpm-x64 pnpm;
-        else
-          cp pnpm-arm64 pnpm;
-        fi
       - chmod 755 pnpm
       - node --version
       - rm -rf website-argos # remove website-argos to avoid install error
@@ -75,13 +70,13 @@ modules:
     sources:
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
-        dest-filename: pnpm-x64
+        dest-filename: pnpm
         sha256: 7db041074a5479713e8ced6c79b7a2874f957ce566cd6f53caf0c5ba4568fcf6
         only-arches: 
          - x86_64
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-arm64
-        dest-filename: pnpm-arm64
+        dest-filename: pnpm
         sha256: 2625b2095a6722c0265deeec5f7779750c6abae317f30001eb20fba9f092d6cc
         only-arches: 
          - aarch64
@@ -90,8 +85,8 @@ modules:
         sha256: 88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
 
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.12.0.tar.gz
-        sha256: d427461f44c274a022f20703d60256fbdb60de3502bdbaa18401a7994758ee92
+        url: https://github.com/benoitf/desktop/archive/refs/tags/v0.0.0.3.tar.gz
+        sha256: 7a892e744221ab93a2d841584cc70b615f389903100a0d042833f06119f41b09
       - type: script
         dest-filename: run.sh
         commands:
