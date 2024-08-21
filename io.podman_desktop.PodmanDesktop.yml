@@ -33,6 +33,7 @@ modules:
         DEBUG: electron-rebuild,electron-builder
     build-commands:
       # Display tooling version
+      - ls -la
       - chmod 755 pnpm-x64
       - ./pnpm-x64 --version
       - node --version
@@ -69,6 +70,7 @@ modules:
     sources:
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
+        dest-filename: pnpm-x64
         sha256: 7db041074a5479713e8ced6c79b7a2874f957ce566cd6f53caf0c5ba4568fcf6
       - type: archive
         url: https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-v1.22.22.tar.gz
