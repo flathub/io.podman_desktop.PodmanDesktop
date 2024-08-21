@@ -33,10 +33,12 @@ modules:
         DEBUG: electron-rebuild,electron-builder
     build-commands:
       # Display tooling version
+      - pnpm-x64 --version
       - node --version
       - yarn --version
       - rm -rf website-argos # remove website-argos to avoid yarn install error
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
+      - pnpm-x64 install --offline
       - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       # This is TEMPORARY AND SHOULD BE REMOVED POST 1.12.0 RELEASE
@@ -64,6 +66,13 @@ modules:
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
+      - type: file
+        url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
+        dest-filename: pnpm-x64
+      - type: archive
+        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-v1.22.22.tar.gz
+        sha256: 88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
+
       - type: archive
         url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.12.0.tar.gz
         sha256: d427461f44c274a022f20703d60256fbdb60de3502bdbaa18401a7994758ee92
@@ -76,3 +85,7 @@ modules:
       - generated-sources.json
       - type: file
         path: yarn.lock
+
+
+
+
