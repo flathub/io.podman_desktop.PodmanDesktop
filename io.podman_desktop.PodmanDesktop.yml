@@ -43,7 +43,7 @@ modules:
       - echo "registry=file:///run/build/podman-desktop/flatpak-node/registry/" >> .npmrc
       - ./pnpm --version
       - ./pnpm fetch
-      - ./pnpm install --offline
+      - ./pnpm install --offline --frozen-lockfile
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - yarn --offline install

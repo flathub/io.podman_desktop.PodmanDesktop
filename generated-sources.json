@@ -1,5 +1,13 @@
 [
     {
+        "type": "file",
+        "url": "https://registry.yarnpkg.com/@docker/extension-api-client-types/-/extension-api-client-types-0.3.4.tgz#0393c98ecad937f95ea805615a917060358aa384",
+        "sha512": "703743f9d3521345c2bd08b0d11e23f5a1e92bea7a13bbe2fb3ed16ca5dfc70b90a5f10ca1e342285969e16ecadd74fbf225a6a0fcf70f142d64401ee15275a1",
+        "dest-filename": "extension-api-client-types-0.3.4.tgz",
+        "dest": "flatpak-node/registry/@docker/extension-api-client-types/-/"
+    },
+
+    {
         "type": "archive",
         "url": "https://playwright.azureedge.net/builds/chromium/1124/chromium-linux.zip",
         "strip-components": 0,
@@ -4874,13 +4882,6 @@
         "url": "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70",
         "sha512": "74156e5d1d3cda09378ec169ed177f248e24cadc061de7270a84ed5c56fb0c1e82347a78ae0e64d5b860d2759d2c62e7395ef59660f319068b332f223cb634a7",
         "dest-filename": "@discoveryjs-json-ext-0.5.7.tgz",
-        "dest": "flatpak-node/yarn-mirror"
-    },
-    {
-        "type": "file",
-        "url": "https://registry.yarnpkg.com/@docker/extension-api-client-types/-/extension-api-client-types-0.3.4.tgz#0393c98ecad937f95ea805615a917060358aa384",
-        "sha512": "703743f9d3521345c2bd08b0d11e23f5a1e92bea7a13bbe2fb3ed16ca5dfc70b90a5f10ca1e342285969e16ecadd74fbf225a6a0fcf70f142d64401ee15275a1",
-        "dest-filename": "@docker-extension-api-client-types-0.3.4.tgz",
         "dest": "flatpak-node/yarn-mirror"
     },
     {
