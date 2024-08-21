@@ -41,13 +41,9 @@ modules:
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
       - echo "node-linker=hoisted" > .npmrc
       - echo "registry=file:///run/build/podman-desktop/flatpak-node/registry/" >> .npmrc
+      - ./pnpm --version
+      - ./pnpm fetch
       - ./pnpm install --offline
-      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      # This is TEMPORARY AND SHOULD BE REMOVED POST 1.12.0 RELEASE
-      # REMOVE THIS LINE BEFORE DOING 1.13.0 RELEASE
-      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      # Replace semver `"semver": "^7.5.8",` to `"semver": "^7.6.3",` in extensions/kubectl-cli/package.json, just sed replace 7.5.8 to 7.6.3
-      - "sed -i 's/\"semver\": \"^7.5.8\",/\"semver\": \"^7.6.3\",/g' extensions/kubectl-cli/package.json"
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - yarn --offline install
