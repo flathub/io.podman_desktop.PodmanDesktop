@@ -34,20 +34,19 @@ modules:
     build-commands:
       # Display tooling version
       - ls -la
-      - arch
-      # if arch is x64, then use x64 version of pnpm else use the arm64 version
+      # if arch is x86_64, then use x64 version of pnpm else use the arm64 version
       - if [ "$(arch)" = "x86_64" ]; then
           cp pnpm-x64 pnpm;
         else
-          cp pnpm-arm pnpm;
+          cp pnpm-arm64 pnpm;
         fi
       - chmod 755 pnpm
       - node --version
-      - yarn --version
-      - rm -rf website-argos # remove website-argos to avoid yarn install error
+      - rm -rf website-argos # remove website-argos to avoid install error
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
+      - echo "node-linker=hoisted" > .npmrc
+      - echo "registry=file:///run/build/podman-desktop/flatpak-node/registry/" >> .npmrc
       - ./pnpm install --offline
-      - echo "yarn-offline-mirror $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-mirror" > .yarnrc
       # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       # This is TEMPORARY AND SHOULD BE REMOVED POST 1.12.0 RELEASE
       # REMOVE THIS LINE BEFORE DOING 1.13.0 RELEASE
@@ -78,10 +77,14 @@ modules:
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
         dest-filename: pnpm-x64
         sha256: 7db041074a5479713e8ced6c79b7a2874f957ce566cd6f53caf0c5ba4568fcf6
+        only-arches: 
+         - x86_64
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-arm64
         dest-filename: pnpm-arm64
         sha256: 2625b2095a6722c0265deeec5f7779750c6abae317f30001eb20fba9f092d6cc
+        only-arches: 
+         - aarch64
       - type: archive
         url: https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-v1.22.22.tar.gz
         sha256: 88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
