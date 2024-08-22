@@ -46,8 +46,8 @@ modules:
       - ./pnpm install --offline --frozen-lockfile --store-dir ./local-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production pnpm run build
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production pnpm run electron-builder build --config .electron-builder.config.cjs --linux --dir
+      - . flatpak-node/electron-builder-arch-args.sh; MODE=production ./pnpm run build
+      - . flatpak-node/electron-builder-arch-args.sh; MODE=production ./pnpm run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do
           rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg";
