@@ -35,10 +35,8 @@ modules:
       # Display tooling version
       - pwd
       - ls -la
-      - ls -la ../
-      - mkdir local-store
-      - mv ../v3 local-store/v3
-      # if arch is x86_64, then use x64 version of pnpm else use the arm64 version
+      - mkdir -p local-store/v3
+      - mv files local-store/v3/files
       - chmod 755 pnpm
       - node --version
       - rm -rf website-argos # remove website-argos to avoid install error
