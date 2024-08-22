@@ -34,21 +34,21 @@ modules:
     build-commands:
       # Display tooling version
       - ls -la
+      - ls -la ./local-store
+      - du -s -h ./local-store
       # if arch is x86_64, then use x64 version of pnpm else use the arm64 version
       - chmod 755 pnpm
       - node --version
       - rm -rf website-argos # remove website-argos to avoid install error
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
       - echo "node-linker=hoisted" > .npmrc
-      - echo "registry=file:///run/build/podman-desktop/flatpak-node/registry/" >> .npmrc
       - ./pnpm --version
       - ./pnpm fetch
-      - ./pnpm install --offline --frozen-lockfile
+      - ./pnpm install --offline --frozen-lockfile --store-dir ./local-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
-      - yarn --offline install
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run build
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production yarn --offline run electron-builder build --config .electron-builder.config.cjs --linux --dir
+      - . flatpak-node/electron-builder-arch-args.sh; MODE=production pnpm run build
+      - . flatpak-node/electron-builder-arch-args.sh; MODE=production pnpm run electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do
           rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg";
@@ -77,12 +77,11 @@ modules:
         only-arches: 
          - aarch64
       - type: archive
-        url: https://github.com/yarnpkg/yarn/releases/download/v1.22.22/yarn-v1.22.22.tar.gz
-        sha256: 88268464199d1611fcf73ce9c0a6c4d44c7d5363682720d8506f6508addf36a0
-
+        url: https://github.com/benoitf/desktop/archive/refs/tags/pnpm-test-1.tar.gz
+        sha256: e6214e797c176181353599405d532af892f01ce156091a64b2e404502156fbf4
       - type: archive
-        url: https://github.com/benoitf/desktop/archive/refs/tags/v0.0.0.3.tar.gz
-        sha256: 7a892e744221ab93a2d841584cc70b615f389903100a0d042833f06119f41b09
+        url: https://github.com/benoitf/desktop/releases/download/pnpm-test-1/pnpm-store.zip
+        sha256: 71ea3b1f3ebe0fefc6481682eca11a5785f591d561876d0787c1f8f1d7efc2dd
       - type: script
         dest-filename: run.sh
         commands:
