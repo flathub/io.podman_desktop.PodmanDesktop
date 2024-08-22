@@ -33,9 +33,11 @@ modules:
         DEBUG: electron-rebuild,electron-builder
     build-commands:
       # Display tooling version
+      - pwd
       - ls -la
-      - ls -la ./local-store
-      - du -s -h ./local-store
+      - ls -la ../
+      - mkdir local-store
+      - mv ../v3 local-store/v3
       # if arch is x86_64, then use x64 version of pnpm else use the arm64 version
       - chmod 755 pnpm
       - node --version
@@ -88,9 +90,6 @@ modules:
           # Wrapper to launch the app
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
-      - generated-sources.json
-      - type: file
-        path: yarn.lock
 
 
 
