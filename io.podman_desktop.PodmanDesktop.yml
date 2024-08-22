@@ -81,6 +81,7 @@ modules:
       - type: archive
         url: https://github.com/benoitf/desktop/releases/download/pnpm-test-1/pnpm-store.zip
         sha256: 71ea3b1f3ebe0fefc6481682eca11a5785f591d561876d0787c1f8f1d7efc2dd
+      - generated-sources.json
       - type: script
         dest-filename: run.sh
         commands:
