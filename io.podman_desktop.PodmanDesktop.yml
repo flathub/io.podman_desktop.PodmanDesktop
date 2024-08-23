@@ -35,19 +35,16 @@ modules:
       # Display tooling version
       - pwd
       - ls -la
-      - mkdir -p local-store/v3
-      - mv files local-store/v3/files
       - chmod 755 pnpm
       - node --version
-      - rm -rf website-argos # remove website-argos to avoid install error
-      - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
-      - echo "node-linker=hoisted" > .npmrc
       - ./pnpm --version
-      - ./pnpm install --offline --frozen-lockfile --store-dir ./local-store
+      - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
+      - mkdir pnpm-store && mv v3 pnpm-store/
+      - ./pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production ./pnpm run build
-      - . flatpak-node/electron-builder-arch-args.sh; MODE=production ./pnpm run electron-builder build --config .electron-builder.config.cjs --linux --dir
+      - . ./electron-builder-env.sh; ./pnpm run build
+      - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do
           rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg";
@@ -63,6 +60,8 @@ modules:
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
+
+      # pnpm tool used to build the project
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
         dest-filename: pnpm
@@ -75,13 +74,43 @@ modules:
         sha256: 2625b2095a6722c0265deeec5f7779750c6abae317f30001eb20fba9f092d6cc
         only-arches: 
          - aarch64
+
+      # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/benoitf/desktop/archive/refs/tags/pnpm-test-1.tar.gz
-        sha256: e6214e797c176181353599405d532af892f01ce156091a64b2e404502156fbf4
+        url: https://github.com/benoitf/desktop/archive/refs/tags/pnpm-test-2.tar.gz
+        sha256: e87fc608a49b7892fbc8b8cf1be672610d17ae77344bc59db82635f179932f16
+
+      # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/benoitf/desktop/releases/download/pnpm-test-1/pnpm-store.zip
-        sha256: 71ea3b1f3ebe0fefc6481682eca11a5785f591d561876d0787c1f8f1d7efc2dd
-      - generated-sources.json
+        url: https://github.com/benoitf/desktop/releases/download/pnpm-test-2/store-cache-pnpm-amd64.tgz
+        sha256: 862af6ccf2356c8ee45b875f3ae68d196302b41b3e0eb8e7bc005252f3b67292
+        only-arches:
+         - x86_64
+
+      # all dependencies being used for arm64 arch   
+      - type: archive
+        url: https://github.com/benoitf/desktop/releases/download/pnpm-test-2/store-cache-pnpm-arm64.tgz
+        sha256: 023639167eb5f801ff3ebbba9700744a4292d72610697617434f46481612c101
+        only-arches:
+         - aarch64
+
+      # electron used for arm64   
+      - type: file
+        url: https://github.com/electron/electron/releases/download/v32.0.1/electron-v32.0.1-linux-arm64.zip
+        sha256: a4f2e36b22a8aebd385a21012cfdb480de781240aafe5ddc4248565a10579242
+        dest: electron-cache/
+        only-arches:
+         - aarch64
+
+      # electron used for x64   
+      - type: file
+        url: https://github.com/electron/electron/releases/download/v32.0.1/electron-v32.0.1-linux-x64.zip
+        sha256: 97d91b496a5eb6faf617d754fe6d6cdae29bf5684463c2b1b3a8c9b106977b85
+        dest: electron-cache/
+        only-arches:
+         - x86_64
+
+         # - generated-sources.json
       - type: script
         dest-filename: run.sh
         commands:
@@ -89,6 +118,9 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
 
-
-
-
+      - type: script
+        dest-filename: electron-builder-env.sh
+        commands:
+          - export MODE=production
+          - export ELECTRON_CACHE="$(pwd)/electron-cache"
+          - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
