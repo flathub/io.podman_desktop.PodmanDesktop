@@ -45,12 +45,8 @@ modules:
       - . ./electron-builder-env.sh; ./pnpm run build
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
-      - for size in {32,64,128,256,512}; do
-          rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg";
-          echo "generating ${FLATPAK_ID} png file for size ${size}";
-          install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/";
-        done;
-        # add scalable svg icon
+      - for size in {32,64,128,256,512}; do rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg"; echo "generating ${FLATPAK_ID} png file for size ${size}"; install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/"; done;
+      # add scalable svg icon
       - install -p -Dm644 "buildResources/icon.svg" "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
       # add metainfo
       - install -Dm644 ".flatpak-appdata.xml" "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
@@ -59,64 +55,56 @@ modules:
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
-
       # pnpm tool used to build the project
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
         dest-filename: pnpm
         sha256: 7db041074a5479713e8ced6c79b7a2874f957ce566cd6f53caf0c5ba4568fcf6
-        only-arches: 
-         - x86_64
+        only-arches:
+          - x86_64
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-arm64
         dest-filename: pnpm
         sha256: 2625b2095a6722c0265deeec5f7779750c6abae317f30001eb20fba9f092d6cc
-        only-arches: 
-         - aarch64
-
+        only-arches:
+          - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.14.1.tar.gz
-        sha256: bd822162b15c172706cc65fdc404a7174c3d0c6e4927ccebb58bfab87b5cc2b9
-
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.14.2.tar.gz
+        sha256: 9334825f0cf68d06bddb4abb7134880b0f6ce99cf004e088e6d1df2cfefc3c1e
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.14.1/store-cache-pnpm-amd64.tgz
-        sha256: b917707c1679f0171f8ecbdd0781e3441621b170f072dcc16702f51ef1d18520
+        url: https://github.com/containers/podman-desktop/releases/download/v1.14.2/store-cache-pnpm-amd64.tgz
+        sha256: b1731a0b1b910e4be6ee8abdf08744e07f396faad354bcc892fa0611311c886f
         only-arches:
-         - x86_64
-
+          - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.14.1/store-cache-pnpm-arm64.tgz
-        sha256: f1560ea57715b52b6c506e20be805cbc1ed6ea0a1ee7ba7c4b591685ab71166a
+        url: https://github.com/containers/podman-desktop/releases/download/v1.14.2/store-cache-pnpm-arm64.tgz
+        sha256: f6f736e42b440b8d801cdb42354706da0aaa70368fef001a3826d10a4c334897
         only-arches:
-         - aarch64
-
+          - aarch64
       # electron used for arm64   
       - type: file
         url: https://github.com/electron/electron/releases/download/v33.0.2/electron-v33.0.2-linux-arm64.zip
         sha256: 43157d520ff6094ef7c390e49d1eec1ba58a488e150114c08e7157fb321fca7b
         dest: electron-cache/
         only-arches:
-         - aarch64
-
+          - aarch64
       # electron used for x64   
       - type: file
         url: https://github.com/electron/electron/releases/download/v33.0.2/electron-v33.0.2-linux-x64.zip
         sha256: 933dc1eae3f2db67912b3ab056fd15a7ca3e1328fe8dd6a1f5266c5a063b1121
         dest: electron-cache/
         only-arches:
-         - x86_64
-
-         # - generated-sources.json
+          - x86_64
+          # - generated-sources.json
       - type: script
         dest-filename: run.sh
         commands:
           # Wrapper to launch the app
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
-
       - type: script
         dest-filename: electron-builder-env.sh
         commands:
