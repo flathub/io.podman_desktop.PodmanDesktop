@@ -57,15 +57,15 @@ modules:
     sources:
       # pnpm tool used to build the project
       - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-x64
+        url: https://github.com/pnpm/pnpm/releases/download/v9.15.0/pnpm-linux-x64
         dest-filename: pnpm
-        sha256: 7db041074a5479713e8ced6c79b7a2874f957ce566cd6f53caf0c5ba4568fcf6
+        sha256: f389709623d29195c5555a32513d633d28aa457c30448d0bb8d87439c7b127dc
         only-arches:
           - x86_64
       - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v9.7.1/pnpm-linux-arm64
+        url: https://github.com/pnpm/pnpm/releases/download/v9.15.0/pnpm-linux-arm64
         dest-filename: pnpm
-        sha256: 2625b2095a6722c0265deeec5f7779750c6abae317f30001eb20fba9f092d6cc
+        sha256: 1f66770efc74835602642c37b8d31c635c0a90bdfc1401c273c6e957714b7561
         only-arches:
           - aarch64
       # source code of Podman Desktop:  
