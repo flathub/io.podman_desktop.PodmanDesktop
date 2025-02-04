@@ -70,18 +70,18 @@ modules:
           - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.16.0.tar.gz
-        sha256: 115bd5e2177a98308fd53d361f9f8170925ad540f22a5aaf6eb38bb2fd03bb9e
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.16.1.tar.gz
+        sha256: 69406e45aed63c6b85462786d821ac4616bdcb328d3c886c4b0dab7ffca01cde
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.16.0/store-cache-pnpm-amd64.tgz
-        sha256: a6e4b4d95159a76ae7a3546a1d8db8970a2b43e24baaf5114576c77545c45c26
+        url: https://github.com/containers/podman-desktop/releases/download/v1.16.1/store-cache-pnpm-amd64.tgz
+        sha256: 233e85b8c637b2ce107ebe76082f39725590bbf3bf6c422b4c126f7fe5cbdb0b
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.16.0/store-cache-pnpm-arm64.tgz
-        sha256: 0e3138682a6f1267eb258f4effa8399db6661666a715bcdfe7bc2c1a924f0d26
+        url: https://github.com/containers/podman-desktop/releases/download/v1.16.1/store-cache-pnpm-arm64.tgz
+        sha256: 08c21b47443b8a7d48cfa088954a7d0bb638b2c36f66dfa0ab23efce0c4ac2f6
         only-arches:
           - aarch64
       # electron used for arm64   
