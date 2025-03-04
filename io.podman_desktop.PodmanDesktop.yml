@@ -70,31 +70,31 @@ modules:
           - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.16.1.tar.gz
-        sha256: 69406e45aed63c6b85462786d821ac4616bdcb328d3c886c4b0dab7ffca01cde
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.17.1.tar.gz
+        sha256: 80b1c12a9151a1ecc82ca16843093addfb5c0d9e3ce3f0bc3d7d8c67e5c10afe
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.16.1/store-cache-pnpm-amd64.tgz
-        sha256: 233e85b8c637b2ce107ebe76082f39725590bbf3bf6c422b4c126f7fe5cbdb0b
+        url: https://github.com/containers/podman-desktop/releases/download/v1.17.1/store-cache-pnpm-amd64.tgz
+        sha256: bb7427f9e1a7633b582b0cc93260f52596ce4c4e743d20c1df0ecd601eb3dc0e
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.16.1/store-cache-pnpm-arm64.tgz
-        sha256: 08c21b47443b8a7d48cfa088954a7d0bb638b2c36f66dfa0ab23efce0c4ac2f6
+        url: https://github.com/containers/podman-desktop/releases/download/v1.17.1/store-cache-pnpm-arm64.tgz
+        sha256: fbca2e45080d0df94d5501e153725b3cc0cef326793f9e2ac3b24a4c2a013076
         only-arches:
           - aarch64
       # electron used for arm64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v34.0.1/electron-v34.0.1-linux-arm64.zip
-        sha256: db16bcca04ee7082f044d75e5410cb450725cb55c5498fac15c6f92079e856d0
+        url: https://github.com/electron/electron/releases/download/v34.3.0/electron-v34.3.0-linux-arm64.zip
+        sha256: 06895af4db0762a2c33f065bd71b92ebec5c9c557ffb2e3402aac74880687310
         dest: electron-cache/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v34.0.1/electron-v34.0.1-linux-x64.zip
-        sha256: a80804d6469feeb71f8853cdc699a64dc07b07085c4a4c56eedfb24a3049f221
+        url: https://github.com/electron/electron/releases/download/v34.3.0/electron-v34.3.0-linux-x64.zip
+        sha256: 263ce56f37b6ab7954d1644bebd429c4c1522ddc48b55e8b3cbc4098def62588
         dest: electron-cache/
         only-arches:
           - x86_64
