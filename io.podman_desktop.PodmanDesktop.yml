@@ -20,7 +20,8 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.kde.StatusNotifierWatcher"
   - "--talk-name=org.freedesktop.Flatpak"
-  - "--socket=session-bus"
+  - "--talk-name=org.freedesktop.secrets"
+  - "--talk-name=org.kde.kwalletd6"
   # required to fix cursor scaling on wayland https://github.com/electron/electron/issues/19810 when the user uses --socket=wayland in their flatpak run
   - "--env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons"
 modules:
