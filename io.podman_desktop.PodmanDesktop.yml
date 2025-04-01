@@ -14,7 +14,7 @@ finish-args:
   - "--device=dri"
   - "--filesystem=home"
   - "--filesystem=xdg-run/podman:create"
-  - "--filesystem=xdg-run/containers/auth.json"
+  - "--filesystem=xdg-run/containers:create"
   - "--filesystem=/run/docker.sock"
   - "--share=network"
   - "--talk-name=org.freedesktop.Notifications"
