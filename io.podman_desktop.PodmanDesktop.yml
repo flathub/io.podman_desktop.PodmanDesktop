@@ -41,7 +41,7 @@ modules:
       - node --version
       - pnpm --version
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
-      - mkdir pnpm-store && mv v3 pnpm-store/
+      - mkdir pnpm-store && mv v10 pnpm-store/
       - pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
