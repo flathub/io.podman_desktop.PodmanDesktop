@@ -91,14 +91,14 @@ modules:
       - type: file
         url: https://github.com/electron/electron/releases/download/v35.1.5/electron-v35.1.5-linux-arm64.zip
         sha256: 9c987b7c2eb1fab7088164203fa639878f96354f3ed71cfe6dca83449589d4b4
-        dest: electron-cache/
+        dest: electron-cache/76646e1e65f010a990c8f26afaf071d50541776122573500b30bcb44f0ebc73a/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
         url: https://github.com/electron/electron/releases/download/v35.1.5/electron-v35.1.5-linux-x64.zip
         sha256: c535af79229be495900cf6b3a3ea0c0e76676d49743e68cfa1b9e76f602c62c7
-        dest: electron-cache/
+        dest: electron-cache/76646e1e65f010a990c8f26afaf071d50541776122573500b30bcb44f0ebc73a/
         only-arches:
           - x86_64
           # - generated-sources.json
@@ -112,5 +112,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache"
+          - export electron_config_cache="$(pwd)/electron-cache"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
