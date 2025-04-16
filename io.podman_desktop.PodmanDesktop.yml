@@ -33,7 +33,8 @@ modules:
       env:
         npm_config_nodedir: /usr/lib/sdk/node22
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
-        DEBUG: electron-rebuild,electron-builder
+        DEBUG: electron-rebuild,electron-builder,@electron/get:index
+        electron_config_cache: /run/build/podman-desktop/electron-cache
     build-commands:
       - chmod 755 pnpm
       - mkdir bin && mv pnpm bin/
@@ -42,8 +43,8 @@ modules:
       - pnpm --version
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
       - mkdir pnpm-store && mv v10 pnpm-store/
-      - ls -la electron-cache/76646e1e65f010a990c8f26afaf071d50541776122573500b30bcb44f0ebc73a/
-      - electron_config_cache="$(pwd)/electron-cache" DEBUG=* pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
+      - echo home is $HOME
+      - pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
@@ -113,5 +114,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export electron_config_cache="$(pwd)/electron-cache"
+          - export ELECTRON_CACHE="$(pwd)/electron-cache"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
