@@ -115,5 +115,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache/76646e1e65f010a990c8f26afaf071d50541776122573500b30bcb44f0ebc73a"
+          - export ELECTRON_CACHE="$(pwd)/electron-cache/3823f8325b6228c0ad28ae147ee67c92fe61e3948351d195d7f8b92a19bbe1dd"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
