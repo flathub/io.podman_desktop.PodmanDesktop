@@ -57,6 +57,7 @@ modules:
       - install -Dm644 ".flatpak-appdata.xml" "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
       # add desktop file
       - install -Dm644 .flatpak.desktop /app/share/applications/${FLATPAK_ID}.desktop
+      - sed -i -e 's$https://raw.githubusercontent.com/containers/podman-desktop/media/screenshot.png$https://github.com/podman-desktop/podman-desktop/raw/refs/tags/v1.19.1/website/static/img/features/homepage.webp$g' /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
