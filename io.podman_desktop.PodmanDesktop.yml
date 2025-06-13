@@ -60,7 +60,7 @@ modules:
       - sed -i -e 's$https://raw.githubusercontent.com/containers/podman-desktop/media/screenshot.png$https://github.com/podman-desktop/podman-desktop/raw/refs/tags/v1.19.1/website/static/img/features/homepage.webp$g' /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
-    sources:    
+    sources:
       # Updated flatpak-appdata for 19.1
       - type: file
         url: https://raw.githubusercontent.com/podman-desktop/podman-desktop/5fa8ee73a51dd0eeedf7263146db812855c9d337/.flatpak-appdata.xml
@@ -81,18 +81,18 @@ modules:
           - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.19.1.tar.gz
-        sha256: a84e7c15df45606cc9b1ad8cc284e3a80716945ae51bd1d0c73fd88a4b628296
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.19.2.tar.gz
+        sha256: 42673654bc704d2e0703d0d514c48b3e276bfb059c021971504326fe614efd76
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.19.1/store-cache-pnpm-amd64.tgz
-        sha256: e8936fcd1424e579e0d8ca8c726ea45d5e9dc6f9e0f0fbedd7ba09a41d0cd9a6
+        url: https://github.com/containers/podman-desktop/releases/download/v1.19.2/store-cache-pnpm-amd64.tgz
+        sha256: 7c1915fb6028919b78c5f1db9d811692283f872c7bccac340bda985a0596b9bf
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.19.1/store-cache-pnpm-arm64.tgz
-        sha256: 6e6fe7dd51eb59b8746b21b215367b1e9b6fe9f86b428b17e5a9984447b7b8cb
+        url: https://github.com/containers/podman-desktop/releases/download/v1.19.2/store-cache-pnpm-arm64.tgz
+        sha256: 834ede02a4684176f583d4ce3db6220007bb8e9251e3374323c978cd6efee172
         only-arches:
           - aarch64
       # electron used for arm64   
