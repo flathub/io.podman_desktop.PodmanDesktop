@@ -53,19 +53,14 @@ modules:
       - for size in {32,64,128,256,512}; do rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg"; echo "generating ${FLATPAK_ID} png file for size ${size}"; install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/"; done;
       # add scalable svg icon
       - install -p -Dm644 "buildResources/icon.svg" "${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg";
-      # add metainfo (19.1 specific, with updated screenshots)
-      - install -Dm644 "updated-appdata.xml" "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
+      # add metainfo
+      - install -Dm644 ".flatpak-appdata.xml" "${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
       # add desktop file
       - install -Dm644 .flatpak.desktop /app/share/applications/${FLATPAK_ID}.desktop
       - sed -i -e 's$https://raw.githubusercontent.com/containers/podman-desktop/media/screenshot.png$https://github.com/podman-desktop/podman-desktop/raw/refs/tags/v1.19.1/website/static/img/features/homepage.webp$g' /app/share/applications/${FLATPAK_ID}.desktop
       # Install run script
       - install -Dm755 -t /app/bin/ run.sh
     sources:
-      # Updated flatpak-appdata for 19.1
-      - type: file
-        url: https://raw.githubusercontent.com/podman-desktop/podman-desktop/5fa8ee73a51dd0eeedf7263146db812855c9d337/.flatpak-appdata.xml
-        dest-filename: updated-appdata.xml
-        sha256: bc32aa1e49a758d0012fd5e2b52348b6ac9345f14216dda1289bbc2b925f677c
       # pnpm tool used to build the project
       - type: file
         url: https://github.com/pnpm/pnpm/releases/download/v10.6.2/pnpm-linux-x64
