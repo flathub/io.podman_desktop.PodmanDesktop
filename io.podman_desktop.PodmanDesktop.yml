@@ -110,6 +110,7 @@ modules:
         commands:
           # Wrapper to launch the app
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
+          - '[ -n "$WAYLAND_DISPLAY" ] && [ -z "$XDG_SESSION_TYPE" ] && export XDG_SESSION_TYPE=wayland'
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - type: script
         dest-filename: electron-builder-env.sh
