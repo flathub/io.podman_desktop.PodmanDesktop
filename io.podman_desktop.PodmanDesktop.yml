@@ -9,8 +9,7 @@ sdk-extensions:
 command: run.sh
 separate-locales: false
 finish-args:
-  - "--socket=wayland"
-  - "--socket=fallback-x11"
+  - "--socket=x11"
   - "--share=ipc"
   - "--device=dri"
   - "--filesystem=home"
@@ -25,6 +24,7 @@ finish-args:
   - "--talk-name=org.kde.kwalletd6"
   # required to fix cursor scaling on wayland https://github.com/electron/electron/issues/19810 when the user uses --socket=wayland in their flatpak run
   - "--env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons"
+  - "--env=XDG_SESSION_TYPE=x11"
 modules:
   # Podman Desktop sources
   - name: podman-desktop
@@ -111,7 +111,6 @@ modules:
         commands:
           # Wrapper to launch the app
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
-          - '[ -n "$WAYLAND_DISPLAY" ] && [ -z "$XDG_SESSION_TYPE" ] && export XDG_SESSION_TYPE=wayland'
           - zypak-wrapper.sh /app/main/podman-desktop "$@"
       - type: script
         dest-filename: electron-builder-env.sh
