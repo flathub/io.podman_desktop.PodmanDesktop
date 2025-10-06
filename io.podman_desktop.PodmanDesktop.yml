@@ -9,7 +9,8 @@ sdk-extensions:
 command: run.sh
 separate-locales: false
 finish-args:
-  - "--socket=x11"
+  - "--socket=wayland"
+  - "--socket=fallback-x11"
   - "--share=ipc"
   - "--device=dri"
   - "--filesystem=home"
