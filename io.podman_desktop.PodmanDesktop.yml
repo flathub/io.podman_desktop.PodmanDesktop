@@ -24,6 +24,7 @@ finish-args:
   - "--talk-name=org.kde.kwalletd6"
   # required to fix cursor scaling on wayland https://github.com/electron/electron/issues/19810 when the user uses --socket=wayland in their flatpak run
   - "--env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons"
+  - "--env=XDG_SESSION_TYPE=x11"
 modules:
   # Podman Desktop sources
   - name: podman-desktop
@@ -63,45 +64,45 @@ modules:
     sources:
       # pnpm tool used to build the project
       - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v10.6.2/pnpm-linux-x64
+        url: https://github.com/pnpm/pnpm/releases/download/v10.15.0/pnpm-linux-x64
         dest-filename: pnpm
-        sha256: 43dd6fc5a2f1c3acbdf148a3c69cbcc8a73df76c3ccf4a2b85b6d2ce2ddc53ba
+        sha256: c9548da52cba52401a8419e1dbc135e2206f74508c18e50ef1ce68e70e7cbf02
         only-arches:
           - x86_64
       - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v10.6.2/pnpm-linux-arm64
+        url: https://github.com/pnpm/pnpm/releases/download/v10.15.0/pnpm-linux-arm64
         dest-filename: pnpm
-        sha256: f961596dd44abd00226b024b89914c4fd312176eb0ff1eb911ff77e1d83d6f21
+        sha256: 4ab218bdf86285f21ceb8e4263e6e737af7e52fe6c76cf8035eea540a153f31c
         only-arches:
           - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.21.0.tar.gz
-        sha256: c8f6eda2c3c3bed72141ca55e485dc705dd15d65366883201035a6dae077d07f
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.22.0.tar.gz
+        sha256: 8c62805748521b09e59919d2c53506970fd7b497a362d129e51f12e5f3257358
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.21.0/store-cache-pnpm-amd64.tgz
-        sha256: 2e79771035a9567e79c5480bdd8a4ce96965444da6d45ce95d25c3614139e4a8
+        url: https://github.com/containers/podman-desktop/releases/download/v1.22.0/store-cache-pnpm-amd64.tgz
+        sha256: ab26675b8538f123a10390dffbeda9480724f7548528fcc5e2136878cf950d23
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.21.0/store-cache-pnpm-arm64.tgz
-        sha256: c51b499df42098a23d9708d3bfe98c83794cb0634f64c3316895f263cc0a98ec
+        url: https://github.com/containers/podman-desktop/releases/download/v1.22.0/store-cache-pnpm-arm64.tgz
+        sha256: 7d5b6d5f9a66bd485d12a36439f74cbfb0cdeb7f3c67b4b8535f0eb1d0bf8852
         only-arches:
           - aarch64
       # electron used for arm64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v37.2.6/electron-v37.2.6-linux-arm64.zip
-        sha256: 1912d1c114e2590fcae45ee8c20d79dc63bb535f46f16b8d596ccfe6e99fcd24
-        dest: electron-cache/3358f5de86c2412d156d0b070be4c4149d9cf892105a2f6b8b489ed7aa5012b3/
+        url: https://github.com/electron/electron/releases/download/v38.2.0/electron-v38.2.0-linux-arm64.zip
+        sha256: 76116429b368c883f93eb98cbdb053f98d811c35943133fe3cf9b408018ebe2f
+        dest: electron-cache/465a2d47ea0faa2e25fd2b450a4011806c44da21a145299836510c0d90b6655f/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v37.2.6/electron-v37.2.6-linux-x64.zip
-        sha256: 3bb2edaddcb55fb4984af319e4ded6d7a40b8da65b87935ae1348877c598ba23
-        dest: electron-cache/3358f5de86c2412d156d0b070be4c4149d9cf892105a2f6b8b489ed7aa5012b3/
+        url: https://github.com/electron/electron/releases/download/v38.2.0/electron-v38.2.0-linux-x64.zip
+        sha256: f0028975282a6f2946797175ac406a95096f29c5dcda98048148668dfa36eff8
+        dest: electron-cache/465a2d47ea0faa2e25fd2b450a4011806c44da21a145299836510c0d90b6655f/
         only-arches:
           - x86_64
           # - generated-sources.json
@@ -115,5 +116,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache/3358f5de86c2412d156d0b070be4c4149d9cf892105a2f6b8b489ed7aa5012b3"
+          - export ELECTRON_CACHE="$(pwd)/electron-cache/465a2d47ea0faa2e25fd2b450a4011806c44da21a145299836510c0d90b6655f"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
