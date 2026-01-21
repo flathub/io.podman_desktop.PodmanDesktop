@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: "25.08"
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node22
+  - org.freedesktop.Sdk.Extension.node24
 command: run.sh
 separate-locales: false
 finish-args:
@@ -13,6 +13,12 @@ finish-args:
   - "--share=ipc"
   - "--device=dri"
   - "--filesystem=home"
+  # Read-only access to /usr and /etc for managed-configuration support.
+  # Flatpak sandboxes these directories, so we can't use --filesystem=/usr/share/podman-desktop:ro directly.
+  # host-os:ro only exposes /usr and parts of /etc (not the full filesystem).
+  # See: https://github.com/flatpak/flatpak/issues/5575
+  # See: https://man7.org/linux/man-pages/man5/flatpak-metadata.5.html (host-os section)
+  - "--filesystem=host-os:ro"
   - "--filesystem=xdg-run/podman:create"
   - "--filesystem=xdg-run/containers:create"
   - "--filesystem=/run/docker.sock"
@@ -55,9 +61,9 @@ modules:
   - name: podman-desktop
     buildsystem: simple
     build-options:
-      append-path: /usr/lib/sdk/node22/bin:/run/build/podman-desktop/bin
+      append-path: /usr/lib/sdk/node24/bin:/run/build/podman-desktop/bin
       env:
-        npm_config_nodedir: /usr/lib/sdk/node22
+        npm_config_nodedir: /usr/lib/sdk/node24
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
         DEBUG: electron-rebuild,electron-builder,@electron/get:index
         electron_config_cache: /run/build/podman-desktop/electron-cache
