@@ -83,32 +83,32 @@ modules:
           - aarch64
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.26.2.tar.gz
-        sha256: 86f6fa53241449bc4798d20ef28269170c188d8c686c11cbf758b677b85cc8a5
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.27.1.tar.gz
+        sha256: 21f070403595b4e0264d9f747c80d4a33795e0fe6fc8b98ac09ad230716e0219
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.26.2/store-cache-pnpm-amd64.tgz
-        sha256: 8c821366b9390d26c6bf56615fdd8699fe5c29094e5e0ba16bd5538920b4404a
+        url: https://github.com/containers/podman-desktop/releases/download/v1.27.1/store-cache-pnpm-amd64.tgz
+        sha256: 480c7528873e7a855ae5bcbf5b0c86e9c368233bc16cabb64fc86eef014d2573
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.26.2/store-cache-pnpm-arm64.tgz
-        sha256: ea2983782777aed1240428b2afba7070eaf4f9d897b83951a5379760a35a30e3
+        url: https://github.com/containers/podman-desktop/releases/download/v1.27.1/store-cache-pnpm-arm64.tgz
+        sha256: c3d130719fcfd52226e27e69d7dc99c48956cc2e9613800aa2345d780e59841c
         only-arches:
           - aarch64
       # electron used for arm64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v41.0.2/electron-v41.0.2-linux-arm64.zip
-        sha256: 5eff34c3c28f7a35d8f90ba23b58e5d5125b7f8fb39be12416dc61fe28b24c21
-        dest: electron-cache/befcaa5a2f3b5b41fb6b9d2558afe21a490b4ca47045933327f37021a6c90679/
+        url: https://github.com/electron/electron/releases/download/v41.2.1/electron-v41.2.1-linux-arm64.zip
+        sha256: c2eedf2ff09fd4fedfce4f244e1604235fc6307dd9fffeaed4be76a3e0dce6f3
+        dest: electron-cache/92de7e0b9013f8f82044966bbe9739d493dc12c36e2bfa6dec36b69c73b451e6/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v41.0.2/electron-v41.0.2-linux-x64.zip
-        sha256: 9f1f347dc81e94b1207fc6ae4c1f1d189d26d3356da6f99e7e46087c84d28f10
-        dest: electron-cache/befcaa5a2f3b5b41fb6b9d2558afe21a490b4ca47045933327f37021a6c90679/
+        url: https://github.com/electron/electron/releases/download/v41.2.1/electron-v41.2.1-linux-x64.zip
+        sha256: 04cc7fd5400c08cd98e2cc5c5e5f60cebb4b72fa65020a8ae2a88d8f48328710
+        dest: electron-cache/92de7e0b9013f8f82044966bbe9739d493dc12c36e2bfa6dec36b69c73b451e6/
         only-arches:
           - x86_64
           # - generated-sources.json
@@ -122,5 +122,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache/befcaa5a2f3b5b41fb6b9d2558afe21a490b4ca47045933327f37021a6c90679"
+          - export ELECTRON_CACHE="$(pwd)/electron-cache/92de7e0b9013f8f82044966bbe9739d493dc12c36e2bfa6dec36b69c73b451e6"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
