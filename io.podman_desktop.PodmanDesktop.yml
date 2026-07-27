@@ -52,12 +52,16 @@ modules:
       - mkdir pnpm-store && mv v11 pnpm-store/
       - echo home is $HOME
       - echo XDG_CACHE_HOME is $XDG_CACHE_HOME
+      - env is
+      - env
       - pnpm install --loglevel debug --offline --frozen-lockfile --config.trustLockfile=true --store-dir ./pnpm-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
       - mkdir -p $HOME/.cache/electron && ln -s $(pwd)/electron-cache/* $HOME/.cache/electron/
       - mkdir -p $XDG_CACHE_HOME/electron && ln -s $(pwd)/electron-cache/* $XDG_CACHE_HOME/electron/
+      - mkdir -p /run/build/podman-desktop/electron-cache && ln -s $(pwd)/electron-cache/* /run/build/podman-desktop/electron-cache/
+      - ls -la /run/build/podman-desktop/electron-cache/*
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg"; echo "generating ${FLATPAK_ID} png file for size ${size}"; install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/"; done;
