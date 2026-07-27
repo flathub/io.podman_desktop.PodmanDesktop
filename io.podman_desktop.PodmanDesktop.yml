@@ -44,14 +44,14 @@ modules:
         electron_config_cache: /run/build/podman-desktop/electron-cache
     build-commands:
       - chmod 755 pnpm
-      - mkdir bin && mv pnpm bin/
+      - mkdir bin && mv pnpm dist bin/
       # Display tooling version
       - node --version
       - pnpm --version
       - sed -i "s#postinstall\":\ \"\(.*\)\"#postinstall\":\ \"\"#g" package.json # remove playwright install step that downloads at runtime files from internet
-      - mkdir pnpm-store && mv v10 pnpm-store/
+      - mkdir pnpm-store && mv v11 pnpm-store/
       - echo home is $HOME
-      - pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
+      - pnpm install --loglevel debug --offline --frozen-lockfile --config.trustLockfile=true --store-dir ./pnpm-store
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
@@ -69,46 +69,46 @@ modules:
       - install -Dm755 -t /app/bin/ run.sh
     sources:
       # pnpm tool used to build the project
-      - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v10.28.0/pnpm-linux-x64
-        dest-filename: pnpm
-        sha256: 348e863d17a62411a65f900e8d91395acabae9e9237653ccc3c36cb385965f28
+      - type: archive
+        url: https://github.com/pnpm/pnpm/releases/download/v11.15.1/pnpm-linux-x64.tar.gz
+        sha256: 0c1373b6390f6b89ff8b896d3647c9826577ddc49173a2f732da69b36569f9e0
         only-arches:
           - x86_64
-      - type: file
-        url: https://github.com/pnpm/pnpm/releases/download/v10.28.0/pnpm-linux-arm64
-        dest-filename: pnpm
-        sha256: 5bf35f1927d5ea0aa76408504f834e3089679d9e18342ab19502a28fb0116391
+        strip-components: 0
+      - type: archive
+        url: https://github.com/pnpm/pnpm/releases/download/v11.15.1/pnpm-linux-arm64.tar.gz
+        sha256: 361e385867146972d0635a41a1871cb44c9c23f65acce78a5f1ca1d44ac0afcd
         only-arches:
           - aarch64
+        strip-components: 0
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.28.3.tar.gz
-        sha256: 5df47a176246a15c3b3a445f0a3576cb1ece7040d9326a22cfa367b124af8675
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.29.0.tar.gz
+        sha256: a47f1689d94e6f951432b4241019dafda42cdf59d6fb3f12dc6ba0c5840b4973
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.28.3/store-cache-pnpm-amd64.tgz
-        sha256: cb93f4426279213444161ae07fd07ac7ba5d3228d3f3cd10665f0f953be2bf9b
+        url: https://github.com/containers/podman-desktop/releases/download/v1.29.0/store-cache-pnpm-amd64.tgz
+        sha256: 4390bb577fbcf9239b659a2a7ab0a8a78fdb598b0589569e67c0a381afd71a27
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.28.3/store-cache-pnpm-arm64.tgz
-        sha256: 4713f748cbee2dc6242ad88639e6f068edbe74cd7d5acb5717be7c2a5df27fee
+        url: https://github.com/containers/podman-desktop/releases/download/v1.29.0/store-cache-pnpm-arm64.tgz
+        sha256: 74389fe5fb10b6d4b28c4c4c111f0d3d29e2f8a14fe2e9855f48edef230f983b
         only-arches:
           - aarch64
       # electron used for arm64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v42.3.3/electron-v42.3.3-linux-arm64.zip
-        sha256: c5eb4eac58236a93c9c07bb3d3536f8bc968aef778f6173480b4f31a63c194e2
-        dest: electron-cache/0398eab6ff3b10eeeae02ced94c086c2894afe98d8b58a4a1f6e485064ac1f7f/
+        url: https://github.com/electron/electron/releases/download/v43.2.0/electron-v43.2.0-linux-arm64.zip
+        sha256: 50e1cdefbf8590e0d89b0276314a99c7b98e8eed732204c6f1a1c2a38376ed87
+        dest: electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v42.3.3/electron-v42.3.3-linux-x64.zip
-        sha256: bcc22137758607216d764dc453e2fea454c808793c3d6a82ddf86a36f9defa2c
-        dest: electron-cache/0398eab6ff3b10eeeae02ced94c086c2894afe98d8b58a4a1f6e485064ac1f7f/
+        url: https://github.com/electron/electron/releases/download/v43.2.0/electron-v43.2.0-linux-x64.zip
+        sha256: f77ca6ed67bbc68702b69b56ad499bca6ae090705ade7d04f0ac545e409dec68
+        dest: electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621/
         only-arches:
           - x86_64
           # - generated-sources.json
@@ -122,5 +122,5 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache/0398eab6ff3b10eeeae02ced94c086c2894afe98d8b58a4a1f6e485064ac1f7f"
+          - export ELECTRON_CACHE="$(pwd)/electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
