@@ -41,7 +41,6 @@ modules:
         npm_config_nodedir: /usr/lib/sdk/node24
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
         DEBUG: electron-rebuild,electron-builder,@electron/get:index
-        electron_config_cache: /run/build/podman-desktop/electron-cache
     build-commands:
       - chmod 755 pnpm
       - mkdir bin && mv pnpm dist bin/
@@ -58,9 +57,7 @@ modules:
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
-      - mkdir -p $HOME/.cache/electron && ln -s $(pwd)/electron-cache/* $HOME/.cache/electron/
-      - mkdir -p $XDG_CACHE_HOME/electron && ln -s $(pwd)/electron-cache/* $XDG_CACHE_HOME/electron/
-      - mkdir -p /run/build/podman-desktop/electron-cache && ln -s $(pwd)/electron-cache/* /run/build/podman-desktop/electron-cache/
+      - mkdir -p /run/build/podman-desktop/flatpak-node/cache && ln -s $(pwd)/electron-cache/* /run/build/podman-desktop/flatpak-node/cache/
       - ls -la /run/build/podman-desktop/electron-cache/*
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
