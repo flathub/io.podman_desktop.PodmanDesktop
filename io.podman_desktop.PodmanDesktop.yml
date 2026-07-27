@@ -52,7 +52,7 @@ modules:
       - mkdir pnpm-store && mv v11 pnpm-store/
       - echo home is $HOME
       - echo XDG_CACHE_HOME is $XDG_CACHE_HOME
-      - env is
+      - echo env is
       - env
       - pnpm install --loglevel debug --offline --frozen-lockfile --config.trustLockfile=true --store-dir ./pnpm-store
       # Replace segment key
