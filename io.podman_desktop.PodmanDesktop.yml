@@ -42,6 +42,7 @@ modules:
         XDG_CACHE_HOME: /run/build/podman-desktop/flatpak-node/cache
         DEBUG: electron-rebuild,electron-builder,@electron/get:index
         electron_config_cache: /run/build/podman-desktop/electron-cache
+        ELECTRON_CACHE: /run/build/podman-desktop/electron-cache
     build-commands:
       - chmod 755 pnpm
       - mkdir bin && mv pnpm bin/
@@ -52,6 +53,8 @@ modules:
       - mkdir pnpm-store && mv v10 pnpm-store/
       - echo home is $HOME
       - pnpm install --loglevel debug --offline --frozen-lockfile --store-dir ./pnpm-store
+      # Manually set up electron binary - postinstall can't download in the sandbox
+      - ELECTRON_ARCH=$(case "$FLATPAK_ARCH" in "x86_64") echo "x64";; "aarch64") echo "arm64";; esac) && unzip -o electron-cache/92de7e0b9013f8f82044966bbe9739d493dc12c36e2bfa6dec36b69c73b451e6/electron-v41.2.1-linux-${ELECTRON_ARCH}.zip -d node_modules/electron/dist && echo "dist/electron" > node_modules/electron/path.txt && chmod +x node_modules/electron/dist/electron
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
