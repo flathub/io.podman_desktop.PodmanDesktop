@@ -55,7 +55,7 @@ modules:
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
-      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache}, electronDist: \"/run/build/podman-desktop/electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621/\"|" .electron-builder.config.cjs'
+      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache}, electronDist: \"/run/build/podman-desktop/electron-cache", |" .electron-builder.config.cjs'
       - echo electron builder config is:
       - cat .electron-builder.config.cjs
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
@@ -104,14 +104,14 @@ modules:
       - type: file
         url: https://github.com/electron/electron/releases/download/v43.2.0/electron-v43.2.0-linux-arm64.zip
         sha256: 50e1cdefbf8590e0d89b0276314a99c7b98e8eed732204c6f1a1c2a38376ed87
-        dest: electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621/
+        dest: electron-cache
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
         url: https://github.com/electron/electron/releases/download/v43.2.0/electron-v43.2.0-linux-x64.zip
         sha256: f77ca6ed67bbc68702b69b56ad499bca6ae090705ade7d04f0ac545e409dec68
-        dest: electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621/
+        dest: electron-cache
         only-arches:
           - x86_64
           # - generated-sources.json
@@ -125,5 +125,4 @@ modules:
         dest-filename: electron-builder-env.sh
         commands:
           - export MODE=production
-          - export ELECTRON_CACHE="$(pwd)/electron-cache/9c4e224684594fb9a8cbda18d3e2b7bf0c3c023d1462402a4031f8b4cc25e621"
           - export ELECTRON_BUILDER_ARCH_ARGS=$(case "$FLATPAK_ARCH" in "i386") echo "--ia32" ;; "x86_64") echo "--x64" ;; "arm") echo "--armv7l" ;; "aarch64") echo "--arm64" ;; esac)
