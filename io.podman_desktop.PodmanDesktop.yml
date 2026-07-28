@@ -57,7 +57,7 @@ modules:
       - . ./electron-builder-env.sh; pnpm run build
       - mkdir -p /run/build/podman-desktop/electron-dist && unzip /run/build/podman-desktop/electron-cache/*/*.zip -d /run/build/podman-desktop/electron-dist
       - ls -la /run/build/podman-desktop/electron-dist
-      - ls -la ~/.cache/
+      - echo xdg cache home is:
       - ls -la $XDG_CACHE_HOME
       - 'sed -i "s|const config = {|const config = { electronDist: \"/run/build/podman-desktop/electron-dist\", |" .electron-builder.config.cjs'
       - echo electron builder config is:
