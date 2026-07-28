@@ -55,7 +55,7 @@ modules:
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
-      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache}, electronDist: \"/run/build/podman-desktop/electron-cache", |" .electron-builder.config.cjs'
+      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache}, electronDist: \"/run/build/podman-desktop/electron-cache\", |" .electron-builder.config.cjs'
       - echo electron builder config is:
       - cat .electron-builder.config.cjs
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
