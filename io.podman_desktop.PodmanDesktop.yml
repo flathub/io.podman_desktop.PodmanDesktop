@@ -55,7 +55,9 @@ modules:
       # Replace segment key
       - sed -i -r -e "s/SEGMENT_KEY = '.*'/SEGMENT_KEY = '$(echo -n 'ODdEZUpwVFhmU05pemF5MUNxQXhsSzViYUQ4VUE1NUQ=' | base64 --decode)'/" packages/main/src/plugin/telemetry/telemetry.ts
       - . ./electron-builder-env.sh; pnpm run build
-      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache },|" .electron-builder.config.cjs'
+      - 'sed -i "s|const config = {|const config = { electronDownload: { cache: process.env.electron_config_cache,  checksums: {'electron-v43.2.0-linux-arm64.zip': '50e1cdefbf8590e0d89b0276314a99c7b98e8eed732204c6f1a1c2a38376ed87', 'electron-v43.2.0-linux-x64.zip': 'f77ca6ed67bbc68702b69b56ad499bca6ae090705ade7d04f0ac545e409dec68'} },|" .electron-builder.config.cjs'
+      - echo electron builder config is:
+      - cat .electron-builder.config.cjs
       - . ./electron-builder-env.sh; ./node_modules/.bin/electron-builder build --config .electron-builder.config.cjs --linux --dir
       - cp -a dist/linux*unpacked /app/main
       - for size in {32,64,128,256,512}; do rsvg-convert -w $size -h $size -f png -o "${FLATPAK_ID}.png" "buildResources/icon.svg"; echo "generating ${FLATPAK_ID} png file for size ${size}"; install -p -Dm644 "${FLATPAK_ID}.png" -t "${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/"; done;
