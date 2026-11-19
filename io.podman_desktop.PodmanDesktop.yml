@@ -79,45 +79,45 @@ modules:
     sources:
       # pnpm tool used to build the project
       - type: archive
-        url: https://github.com/pnpm/pnpm/releases/download/v12.4.2/pnpm-linux-x64.tar.gz
-        sha256: ce1ed690fe9c2f091d7267e1afbe9380abb08bb577e95348fda194a41147d2ec
+        url: https://github.com/pnpm/pnpm/releases/download/v12.8.1/pnpm-linux-x64.tar.gz
+        sha256: db3906881f63e41b655e3b97d473603dc26326c2470d0b1b8083689e1bcbd1e8
         only-arches:
           - x86_64
         strip-components: 0
       - type: archive
-        url: https://github.com/pnpm/pnpm/releases/download/v12.4.2/pnpm-linux-arm64.tar.gz
-        sha256: dc4a29d9848ef005bec3d36d49aae84b115ec3b18c110a3a7f33c37f7fd520bf
+        url: https://github.com/pnpm/pnpm/releases/download/v12.8.1/pnpm-linux-arm64.tar.gz
+        sha256: 75c5e34d3164fe3d3549580b1b1b59c9dd16543e558dec722b686193cdb7dfa1
         only-arches:
           - aarch64
         strip-components: 0
       # source code of Podman Desktop:  
       - type: archive
-        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.30.7.tar.gz
-        sha256: cd21efc75da51d97ab7721de44bb15c8fa81637a8c7cfc1a998696522482fbf4
+        url: https://github.com/containers/podman-desktop/archive/refs/tags/v1.31.0.tar.gz
+        sha256: 41628bf25683048aabde510566b9f59aad03ab180fa5a805d95f20d186c13cf5
       # all dependencies being used for x64 arch  
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.30.7/store-cache-pnpm-amd64.tgz
-        sha256: 8e42783a5b825bcf766844318d74c71a999dc8e845dc4207d1b3b4869de2e087
+        url: https://github.com/containers/podman-desktop/releases/download/v1.31.0/store-cache-pnpm-amd64.tgz
+        sha256: c4d4426c7f17ddfc1ddb98daf66a6e205b88c853c904d7b805dd34a8181b4ea0
         only-arches:
           - x86_64
       # all dependencies being used for arm64 arch   
       - type: archive
-        url: https://github.com/containers/podman-desktop/releases/download/v1.30.7/store-cache-pnpm-arm64.tgz
-        sha256: ab59a1908235b19ceb67a6acc3a0c50429debabb4a6b761f7444343be914769e
+        url: https://github.com/containers/podman-desktop/releases/download/v1.31.0/store-cache-pnpm-arm64.tgz
+        sha256: 7661e8dc4c133d235e9896091ddc3b05c2668241ca1bb963a874d32000f9a2cb
         only-arches:
           - aarch64
       # electron used for arm64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v44.4.2/electron-v44.4.2-linux-arm64.zip
-        sha256: 8e4db729303660d018ed7fc004b289362da83ff2ff8880bdccd3deb78a9ea1a8
-        dest: electron-cache/b9fb81ce8fb19ad53d03df0dd3b870058439536dad2fe25a98f61d7797473980/
+        url: https://github.com/electron/electron/releases/download/v45.3.2/electron-v45.3.2-linux-arm64.zip
+        sha256: e869334b60a1768b2cbb0ae066d25de333511cbb1957cdac9a345e120d41e11b
+        dest: electron-cache/d6975f2bc592464edd7378c436d8aab1d9d0bf7a48a3619bbd8b006d1490565a/
         only-arches:
           - aarch64
       # electron used for x64   
       - type: file
-        url: https://github.com/electron/electron/releases/download/v44.4.2/electron-v44.4.2-linux-x64.zip
-        sha256: ad71063e77da29a647f872b090478f9fa9ccffd67de7b2ae6315409cf1f13436
-        dest: electron-cache/b9fb81ce8fb19ad53d03df0dd3b870058439536dad2fe25a98f61d7797473980/
+        url: https://github.com/electron/electron/releases/download/v45.3.2/electron-v45.3.2-linux-x64.zip
+        sha256: 0ae270dcca192d2f0a0e2be585307a2460f59303d76b7d19171fc6442d72a829
+        dest: electron-cache/d6975f2bc592464edd7378c436d8aab1d9d0bf7a48a3619bbd8b006d1490565a/
         only-arches:
           - x86_64
           # - generated-sources.json
